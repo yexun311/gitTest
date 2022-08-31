@@ -1,2 +1,2 @@
-# gitTest
-for gitTest
+# GitTest
+This folder is for gitTest ！
