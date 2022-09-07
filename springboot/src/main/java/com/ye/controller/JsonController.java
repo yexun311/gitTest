@@ -32,5 +32,4 @@ public class JsonController {
         userMap.put("2", new User(2L, "er", "222"));
         return new JsonResult<>(userMap);
     }
-
 }

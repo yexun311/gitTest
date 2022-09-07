@@ -1,4 +1,4 @@
-package testLib;
+package com.ye.testLib;
 
 import org.springframework.stereotype.Component;
 

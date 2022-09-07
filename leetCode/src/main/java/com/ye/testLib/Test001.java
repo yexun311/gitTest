@@ -1,4 +1,6 @@
-package testLib;
+package com.ye.testLib;
+
+import org.springframework.util.StringUtils;
 
 public class Test001 {
     public void moveZeroes(int[] nums) {
@@ -61,5 +63,50 @@ public class Test001 {
             nums1[j] = nums2[i];
             i++;
         }
+    }
+
+    public String reorderSpaces(String text){
+        String str = "";
+        int count = 0;
+        int strNum = 0;
+        for (char s : text.toCharArray()){
+            if (s == ' ')
+                count++;
+        }
+        String[] strs = text.split(" ");
+        for (String s : strs){
+            if (!s.equals("")) {
+                str = str.concat(s + " ");
+                strNum++;
+            }
+        }
+        str = str.trim();
+        if(strNum == 0)
+            return text;
+        if(strNum == 1){
+            for (int i = 0; i < count; i++) {
+                str = str.concat(" ");
+            }
+            return str;
+        }
+        int addNum = count / (strNum - 1);
+        int lastNum = count % (strNum - 1);
+        String insertSpace = "";
+        String lastSpace = "";
+        for (int i = 0; i < addNum; i++)
+            insertSpace = insertSpace.concat(" ");
+        for (int i = 0; i < lastNum; i++)
+            lastSpace = lastSpace.concat(" ");
+        for (int i = 0; i < str.length(); i++){
+            if (str.charAt(i) == ' '){
+                String temp = str.substring(i+1);
+                str = str.substring(0,i);
+                str = str.concat(insertSpace + temp);
+                i = i + addNum;
+            }
+        }
+        str = str.concat(lastSpace);
+
+        return str;
     }
 }
