@@ -1,8 +1,8 @@
-server:
-  port: 8081
-
-# 数据库连接配置
+# dev-开发环境，test-测试环境
 spring:
+  profiles:
+    active: dev
+  # 数据库连接配置
   datasource:
     username: root
     password: 123456
