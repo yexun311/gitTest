@@ -2,6 +2,7 @@ package com.ye.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ye.pojo.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 @Repository//代表持久层

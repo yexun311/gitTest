@@ -1,6 +1,7 @@
 package com.ye;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ye.mapper.UserMapper;
 import com.ye.pojo.User;
 import org.assertj.core.util.Lists;
@@ -23,7 +24,7 @@ class MyBatisPlusApplicationTests {
     private UserMapper userMapper;
 
     @Test
-    void selectTest(){
+    void selectTest13(){
         System.out.println("-------------selectList method test-----------------");
         // 参数是一个mapper，条件构造器，这里不用，填null
         // 查询所有用户
@@ -73,6 +74,20 @@ class MyBatisPlusApplicationTests {
             System.out.println("update success");
     }
 
+    @Test
+    void pageTest(){
+        System.out.println("-------------page-------------");
+        // 页数，页面大小
+        Page<User> page = new Page<>(2,2);
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.lambda().gt(User::getId,2L);
+        userMapper.selectPage(page,wrapper);
+        page.getRecords().forEach(System.out::println);
+
+        // 获取总数
+        System.out.println(page.getTotal());
+
+    }
 
     @Test
     void selectTest1(){

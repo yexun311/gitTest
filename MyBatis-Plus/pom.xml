@@ -46,11 +46,11 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- mybatis-plus 版本很重要 3.0.5-->
+        <!-- mybatis-plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.0.5</version>
+            <version>3.3.1.tmp</version>
         </dependency>
 
         <!-- h2 -->

@@ -10,9 +10,7 @@ public class Test001 {
                 break;
             if (nums[i] == 0){
                 count++;
-                for (int j = i; j < nums.length - count; j++){
-                    nums[j] = nums[j+1];
-                }
+                if (nums.length - count - i >= 0) System.arraycopy(nums, i + 1, nums, i, nums.length - count - i);
                 nums[nums.length - count] = 0;
                 i--;
             }
@@ -47,8 +45,7 @@ public class Test001 {
             System.out.println("Error!");
         for (; i < n; i++){
             if (nums2[i] <= nums1[j]){
-                for (int k = nums1.length - 1; k > j; k--)
-                    nums1[k] = nums1[k-1];
+                if (nums1.length - 1 - j >= 0) System.arraycopy(nums1, j, nums1, j + 1, nums1.length - 1 - j);
                 nums1[j] = nums2[i];
                 count++;
             }else if (j == m + count-1){
@@ -109,4 +106,5 @@ public class Test001 {
 
         return str;
     }
+
 }
