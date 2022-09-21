@@ -1,5 +1,6 @@
 package com.ye;
 
+import com.google.common.collect.Lists;
 import com.ye.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,8 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 import static java.lang.System.in;
 
@@ -56,9 +56,14 @@ class SpringbootApplicationTests {
 
     @Test
     void myTest1(){
-        String str = "";
-        System.out.println(str.toUpperCase());
-
+        List<String> strList = new ArrayList<>();
+        strList.add("1");
+        strList.add("2");
+        System.out.println(strList);
+        strList.clear();
+        System.out.println(strList);
+        strList.add("3");
+        System.out.println(strList);
     }
 
 

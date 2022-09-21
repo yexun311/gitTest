@@ -1,6 +1,7 @@
 package com.ye;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ye.mapper.UserMapper;
 import com.ye.pojo.User;
@@ -86,6 +87,8 @@ class MyBatisPlusApplicationTests {
 
         // 获取总数
         System.out.println(page.getTotal());
+        System.out.println(page.getClass());
+        System.out.println(page.getRecords().getClass());
 
     }
 
