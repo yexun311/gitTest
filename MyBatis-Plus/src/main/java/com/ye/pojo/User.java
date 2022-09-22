@@ -25,8 +25,7 @@ public class User {
 
     public User(){}
 
-    public User(Long id, String name, Integer age, String email){
-        this.id = id;
+    public User(String name, Integer age, String email){
         this.name = name;
         this.age = age;
         this.email = email;

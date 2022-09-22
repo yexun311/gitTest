@@ -13,9 +13,7 @@ class LeetCodeApplicationTests {
     void contextLoads() {
     }
 
-
-    private Test383 test383 = new Test383();
-    private Test001 test001 = new Test001();
+    private final Test001 test001 = new Test001();
 
     @Test
     void LeetCodeTest1(){
@@ -33,13 +31,21 @@ class LeetCodeApplicationTests {
     }
 
     @Test
+    void leetCodeTest2(){
+        int[] arr = {91,4,64,78};
+        int[][] pieces = {{78},{4,64},{91}};
+        System.out.println(test001.canFormArray(arr, pieces));
+
+    }
+
+    @Test
     void myTest(){
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         sb.append("abc");
         sb.append("ef");
-        System.out.println(sb.toString());
+        System.out.println(sb);
         sb.insert(3,"d");
-        System.out.println(sb.toString());
+        System.out.println(sb);
         sb.delete(5,6);
         System.out.println(sb);
         sb.deleteCharAt(2);
@@ -49,16 +55,18 @@ class LeetCodeApplicationTests {
 
         String str = "  abc d  e   f     ";
         String[] strs = str.split(" ");
-        StringBuilder sb1 = new StringBuilder("");
+        StringBuilder sb1 = new StringBuilder();
         for (String s : strs){
             if (!s.equals(""))
-                sb1.append(s + " ");
+                sb1.append(s).append(" ");
         }
         System.out.println(sb1);
 
         System.out.println("//////////////////////////////");
         Integer s = null;
-        System.out.println(String.valueOf(s));
+        System.out.println(s);
     }
+
+
 
 }

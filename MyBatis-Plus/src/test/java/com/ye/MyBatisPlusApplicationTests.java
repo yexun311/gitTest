@@ -1,10 +1,14 @@
 package com.ye;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ye.mapper.UserMapper;
 import com.ye.pojo.User;
+import com.ye.service.UserService;
+import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
@@ -23,128 +27,132 @@ class MyBatisPlusApplicationTests {
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private UserService userService;
 
     @Test
-    void selectTest13(){
-        System.out.println("-------------selectList method test-----------------");
-        // 参数是一个mapper，条件构造器，这里不用，填null
-        // 查询所有用户
+    void selectTest(){
+        System.out.println("----------selectList----------");
         List<User> userList = userMapper.selectList(null);
         userList.forEach(System.out::println);
-        System.out.println("-------------selectById method test-----------------");
-        User user = userMapper.selectById(1L);
-        System.out.println(user);
-        System.out.println("-------------selectBatchIds method test-----------------");
-        userList = userMapper.selectBatchIds(Lists.newArrayList(1L,2L,5L));
-        System.out.println(userList);
-        System.out.println("-------------selectByMap method test-----------------");
-        Map<String,Object> map = new HashMap<>();
-        // 自定义查询条件
-        map.put("name","jack");
-        map.put("age",20);
-        userList = userMapper.selectByMap(map);
+        System.out.println("----------selectList wrapper----------");
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.like("email","@")
+                .ge("age",18);
+        userList = userMapper.selectList(wrapper);
         userList.forEach(System.out::println);
+
     }
+
     @Test
     void insertTest(){
-        System.out.println("-------------insert method test-----------------");
+        System.out.println("----------insert----------");
         User user = new User();
         user.setId(0L);
-        user.setName("peter");
-        user.setAge(22);
-        user.setEmail("131@peter.com");
-        int result = userMapper.insert(user);
-        if (result == 1)
-            System.out.println("insert success");
+        user.setName("teilo");
+        user.setAge(21);
+        user.setEmail("123@teilo.com");
+        int i = userMapper.insert(user);
+        if (i == 1)
+            System.out.println("success");
+        userMapper.insert(new User("milk", 12, "123@milk.com"));
+    }
+
+
+    @Test
+    void updateTest(){
+        System.out.println("----------update----------");
+        // 把 milk 的年龄改为 17
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.lambda()
+                .set(User::getAge,17)
+                .eq(User::getName,"milk");
+        System.out.println(userMapper.update(null,wrapper) == 1 ? "update success" : "nothing to update");
+
     }
 
     @Test
     void deleteTest(){
-        System.out.println("-------------deleteById method test-----------------");
-        int result = userMapper.deleteById(9L);
-        if (result == 1)
+        System.out.println("----------delete----------");
+        // 删除 tailo
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.lambda()
+                .eq(User::getName,"teilo");
+        int i = userMapper.delete(wrapper);
+        if ( i != 0)
             System.out.println("delete success");
     }
 
     @Test
-    void updateTest(){
-        System.out.println("-------------update method test-----------------");
-        User user = new User(10L,"like",23,"111@like.com");
-        int result = userMapper.updateById(user);
-        if (result == 1)
-            System.out.println("update success");
+    void getTest(){
+        System.out.println("----------get----------");
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.lambda()
+                .eq(User::getId,8L);
+        User user = userService.getOne(wrapper);
+        System.out.println(user);
+    }
+
+    @Test
+    void listTest(){
+        System.out.println("----------list----------");
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.lambda()
+                .like(User::getEmail,"@");
+        List<User> userList = userService.list(wrapper);
+        userList.forEach(System.out::println);
+    }
+
+    @Test
+    void saveTest(){
+        System.out.println("----------save----------");
+        User user = new User("lop",21,"756@lop.com");
+        boolean flag = userService.save(user);
+        System.out.println(flag);
+    }
+
+    @Test
+    void serviceUpdateTest(){
+        System.out.println("----------serviceUpdate----------");
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        // 更新 id = 13 的数据
+        wrapper.lambda()
+                .set(User::getName,"colin")
+                .set(User::getAge,22)
+                .set(User::getEmail,"498@colin.com")
+                .eq(User::getId,13L);
+        boolean flag = userService.update(wrapper);
+        System.out.println(flag);
+    }
+
+    @Test
+    void removeTest(){
+        System.out.println("----------remove----------");
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.lambda()
+                .eq(User::getId,12);
+        boolean flag = userService.remove(wrapper);
+        System.out.println(flag);
+    }
+
+    @Test
+    void selectXmlTest(){
+        System.out.println("----------selectXml----------");
+        // xml 配置查询年龄为 17 的用户
+        List<User> userList = userMapper.selectByAge(17);
+        userList.forEach(System.out::println);
     }
 
     @Test
     void pageTest(){
-        System.out.println("-------------page-------------");
-        // 页数，页面大小
+        System.out.println("----------page----------");
         Page<User> page = new Page<>(2,2);
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.lambda().gt(User::getId,2L);
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(User::getEmail,"@")
+                .ge(User::getId,1L)
+                .between(User::getAge,2,26);
         userMapper.selectPage(page,wrapper);
-        page.getRecords().forEach(System.out::println);
-
-        // 获取总数
-        System.out.println(page.getTotal());
-        System.out.println(page.getClass());
-        System.out.println(page.getRecords().getClass());
-
     }
 
-    @Test
-    void selectTest1(){
-        System.out.println("-----查询name不为null，邮箱不为null，年龄大于等于21的用户-----");
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.isNotNull("name");
-        wrapper.isNotNull("email");
-        wrapper.ge("age",21);
-        List<User> userList = userMapper.selectList(wrapper);
-        userList.forEach(System.out::println);
-    }
 
-    @Test
-    void selectTest2(){
-        System.out.println("-----查询name为jack的用户-----");
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("name","jack");
-        List<User> userList = userMapper.selectList(wrapper);
-        userList.forEach(System.out::println);
-    }
-
-    @Test
-    void selectTest3(){
-        System.out.println("-----查询年龄在21~22岁之间的用户-----");
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.between("age",21,22);
-        List<User> userList = userMapper.selectList(wrapper);
-        userList.forEach(System.out::println);
-    }
-
-    @Test
-    void selectTest4(){
-        System.out.println("-----模糊查询-----");
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.like("name","ac");
-
-        List<User> userList = userMapper.selectList(wrapper);
-        userList.forEach(System.out::println);
-
-        List<Map<String,Object>> maps = userMapper.selectMaps(wrapper);
-        maps.forEach(System.out::println);
-    }
-
-    @Test
-    void selectTest0(){
-        System.out.println("-----查询email有13的用户-----");
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.like("email","13");
-        List<User> userList = userMapper.selectList(wrapper);
-        userList.forEach(System.out::println);
-    }
-
-    @Test
-    void myTest1(){
-
-    }
 }

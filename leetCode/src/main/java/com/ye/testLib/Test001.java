@@ -107,4 +107,32 @@ public class Test001 {
         return str;
     }
 
+    public boolean canFormArray(int[] arr, int[][] pieces) {
+        int i = 0;
+        while (i < arr.length){
+            int temp = i;
+            for (int[] piece : pieces) {
+                for (int k = 0; k < piece.length; k++) {
+                    if (arr[temp] == piece[k]) {
+                        if (temp == arr.length - 1 && k == piece.length - 1)
+                            return true;
+                        else if (temp == arr.length - 1 && k != pieces.length - 1)
+                            return false;
+                        temp++;
+                    } else {
+                        temp = i;
+                        break;
+                    }
+                }
+                if (temp != i)
+                    break;
+            }
+            if (i != temp){
+                i = temp;
+            }else {
+                return false;
+            }
+        }
+        return true;
+    }
 }
