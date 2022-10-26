@@ -2,6 +2,11 @@ package com.ye.testLib;
 
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 public class Test001 {
     public void moveZeroes(int[] nums) {
         int count = 0;//零的个数
@@ -134,5 +139,55 @@ public class Test001 {
             }
         }
         return true;
+    }
+
+    public int lengthOfLongestSubstring(String s){
+        int max = 1;
+        if (s.equals(""))
+            return 0;
+        for (int i = 0; i < s.length() - 1; i++){
+            int[] arr = new int[28];
+            Arrays.fill(arr,0);
+            if (s.charAt(i) == ' ')
+                arr[26]++;
+            else if (s.charAt(i) == '!')
+                arr[27]++;
+            else
+                arr[s.charAt(i) - 'a']++;
+            for (int j = i + 1; j < s.length(); j++){
+                if (s.charAt(j) == ' ')
+                    arr[26]++;
+                else if (s.charAt(j) == '!')
+                    arr[27]++;
+                else
+                    arr[s.charAt(j) - 'a']++;
+                if (s.charAt(j) == ' ' ? arr[26] > 1 : s.charAt(j) == '!' ? arr[27] > 1 : arr[s.charAt(j) - 'a'] > 1){
+                    if (max < j - i)
+                        max = j - i;
+                    break;
+                }
+                if (j == s.length() - 1 )
+                    if (max < j - i + 1)
+                        max = j - i + 1;
+
+            }
+        }
+        return max;
+    }
+
+
+    public int[] missingTwo(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+        int j = 0;
+        for (int i = 1; i <= (nums.length + 2); i++){
+            if (j < nums.length && i == nums[j]){
+                j++;
+                continue;
+            }
+            list.add(i);
+            if (list.size() == 2)
+                return list.stream().filter(Objects::nonNull).mapToInt(k -> k).toArray();
+        }
+        return new int[]{0};
     }
 }

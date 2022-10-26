@@ -1,10 +1,15 @@
 package com.ye.leetcode;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.ye.testLib.Test001;
 import com.ye.testLib.Test383;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 class LeetCodeApplicationTests {
@@ -67,6 +72,11 @@ class LeetCodeApplicationTests {
         System.out.println(s);
     }
 
+    @Test
+    void myTest01(){
+        List<Integer> list = new ArrayList<>(Lists.newArrayList(1,2,3,4,5,6,7));
+        System.out.println(list);
 
+    }
 
 }
