@@ -6,20 +6,14 @@ import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.google.common.collect.Lists;
 import com.ye.common.util.AesCBCUtil;
-import com.ye.entity.User;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.engine.support.descriptor.ClasspathResourceSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -29,8 +23,7 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.lang.System.clearProperty;
-import static java.lang.System.in;
+import static java.lang.System.*;
 
 @SpringBootTest
 class SpringbootApplicationTests {
@@ -89,12 +82,12 @@ class SpringbootApplicationTests {
     @Test
     void myTest4(){
         Date date = new Date();
-        System.out.println(date.toString());
+        System.out.println(date);
     }
 
     @Test
     void easyExcelTest() throws IOException {
-        /**
+        /*
          * easyExcel 导出 excel 表， 模板实现导出指定对象或 map 和对象列表
          * 也可以导出为返回流
          * easyExcel文档: https://easyexcel.opensource.alibaba.com/docs/current/quickstart/fill
@@ -141,7 +134,7 @@ class SpringbootApplicationTests {
 
 
     }
-    class User{
+    static class User{
         private String hobby;
         private String name;
         User(){}
@@ -214,6 +207,21 @@ class SpringbootApplicationTests {
         System.out.println("替换加密列表：");
         resultList.forEach(System.out::println);
 
+    }
+
+    @Test
+    public void test(){
+        String str= "JkL";
+        str = str.toLowerCase();
+        System.out.println(str);
+
+        String reqid = UUID.randomUUID().toString();//获取UUID
+        out.println(reqid);
+        reqid = reqid.replace("-","");
+        System.out.println(reqid);
+
+        List<String> list = Lists.newArrayList("1","2","3");
+        out.println(String.join(",", list));
     }
 
 }

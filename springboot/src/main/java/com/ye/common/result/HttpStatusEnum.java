@@ -9,6 +9,7 @@ public enum HttpStatusEnum implements HttpStatusHandler {
     SUCCESS(200, 200, "操作成功"),
 
     FAIL(400, 400,"操作失败"),
+    AUTH_FAIL(401, 401, "认证失败"),
 
     SYSTEM_EXCEPTION(500, 500, "系统异常"),
 

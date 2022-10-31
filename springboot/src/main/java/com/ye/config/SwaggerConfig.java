@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 @Configuration
 @EnableSwagger2 //开启 swagger2
-public class MySwaggerConfig {
+public class SwaggerConfig {
     @Bean
     public Docket docket(){
         return new Docket(DocumentationType.SWAGGER_2)

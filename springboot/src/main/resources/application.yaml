@@ -9,10 +9,13 @@ server:
    # com.itcodai.course03.dao: trace
 
 spring:
+  # redis 配置
   redis:
     host: 127.0.0.1
     port: 6379
+    # 用 0号 redis数据库
     database: 0
+    # 连接池配置
     lettuce:
       pool:
         max-idle: 16

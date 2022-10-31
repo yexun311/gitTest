@@ -1,7 +1,8 @@
 package com.ye.controller;
 
 import com.ye.common.result.Result;
-import com.ye.entity.User;
+import com.ye.common.result.ResultSet;
+import com.ye.model.entity.UserEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,24 +13,24 @@ import java.util.*;
 public class JsonController {
 
     @RequestMapping("/class")
-    public Result<User> classJson(){
-        User user = new User(123L,"xiaoliu","332");
+    public ResultSet<UserEntity> classJson(){
+        UserEntity userEntity = new UserEntity(123L,"xiaoliu","332");
         return null;
     }
 
     @RequestMapping("/list")
-    public Result<List<User>> listJson(){
-        List<User> userList = new ArrayList<>();
-        userList.add(new User(1234L,"xiaobei","566"));
-        userList.add(new User(5678L,"xiaojiang","788"));
-        return null;
+    public ResultSet<List<UserEntity>> listJson(){
+        List<UserEntity> userEntityList = new ArrayList<>();
+        userEntityList.add(new UserEntity(1234L,"xiaobei","566"));
+        userEntityList.add(new UserEntity(5678L,"xiaojiang","788"));
+        return Result.success(userEntityList);
     }
 
     @RequestMapping("/map")
-    public Result<Map<String,Object>> mapJson() {
+    public ResultSet<Map<String,Object>> mapJson() {
         Map<String, Object> userMap = new HashMap<>();
-        userMap.put("1", new User(1L, "yi", "111"));
-        userMap.put("2", new User(2L, "er", "222"));
-        return null;
+        userMap.put("1", new UserEntity(1L, "yi", "111"));
+        userMap.put("2", new UserEntity(2L, "er", "222"));
+        return Result.success(userMap);
     }
 }

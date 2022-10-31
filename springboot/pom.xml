@@ -33,6 +33,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>-->
+
         <!-- swagger2 需要导入两个依赖 -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -56,6 +61,13 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.75</version>
+        </dependency>
+
+        <!-- java web token -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
 
         <!-- easyExcel -->
