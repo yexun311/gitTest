@@ -4,9 +4,10 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
-import com.google.common.collect.Lists;
 import com.ye.common.util.AesCBCUtil;
+import com.ye.model.entity.UserEntity;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -222,6 +223,45 @@ class SpringbootApplicationTests {
 
         List<String> list = Lists.newArrayList("1","2","3");
         out.println(String.join(",", list));
+    }
+
+    @Test
+    public void test01(){
+        Calendar calendar = Calendar.getInstance();
+        for (int i = 0; i < 6; i++){
+            int minute = calendar.get(Calendar.MINUTE);
+            int start = (minute / 5) * 5;
+            calendar.set(Calendar.MINUTE, start);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            System.out.println(calendar.getTime());
+            calendar.add(Calendar.MINUTE, 6);
+        }
+
+        calendar.setTime(new Date());
+        for (int i = 0; i < 6; i++){
+            if (calendar.get(Calendar.MINUTE) < 55){
+                int minute = calendar.get(Calendar.MINUTE);
+                int start = (minute / 5 + 1) * 5;
+                calendar.set(Calendar.MINUTE, start);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                System.out.println(calendar.getTime());
+                calendar.add(Calendar.MINUTE, 6);
+            } else{
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                calendar.add(Calendar.HOUR, 1);
+                calendar.add(Calendar.MINUTE, 6);
+            }
+
+        }
+    }
+
+    @Test
+    public void test02(){
+        List<UserEntity> users = null;
+
     }
 
 }

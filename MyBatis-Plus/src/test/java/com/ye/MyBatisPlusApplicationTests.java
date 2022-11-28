@@ -13,6 +13,7 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.sql.Wrapper;
@@ -32,14 +33,17 @@ class MyBatisPlusApplicationTests {
 
     @Test
     void selectTest(){
-        System.out.println("----------selectList----------");
+        /* System.out.println("----------selectList----------");
         List<User> userList = userMapper.selectList(null);
-        userList.forEach(System.out::println);
+        userList.forEach(System.out::println); */
         System.out.println("----------selectList wrapper----------");
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.like("email","@")
-                .ge("age",18);
-        userList = userMapper.selectList(wrapper);
+                .ge("age",99);
+        List<User> userList = userMapper.selectList(wrapper);
+        if (CollectionUtils.isEmpty(userList)){
+            System.out.println("123");
+        }
         userList.forEach(System.out::println);
 
     }
